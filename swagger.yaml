@@ -1,0 +1,194 @@
+basePath: /api
+consumes:
+- application/json
+definitions:
+  api.AddStudentReq:
+    properties:
+      age:
+        type: integer
+      alias:
+        items:
+          type: string
+        type: array
+      email:
+        type: string
+      name:
+        type: string
+    type: object
+  api.AddStudentRsp:
+    properties:
+      id:
+        type: integer
+    type: object
+  api.DeleteStudentRsp:
+    properties:
+      count:
+        type: integer
+    type: object
+  api.GetStudentRsp:
+    properties:
+      age:
+        type: integer
+      alias:
+        items:
+          type: string
+        type: array
+      created_at:
+        type: integer
+      created_by:
+        type: integer
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: integer
+      updated_by:
+        type: integer
+    type: object
+  api.ListStudentRsp:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/api.StudentRsp'
+        type: array
+      total:
+        type: integer
+    type: object
+  api.StudentRsp:
+    properties:
+      age:
+        type: integer
+      alias:
+        items:
+          type: string
+        type: array
+      created_at:
+        type: integer
+      created_by:
+        type: integer
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: integer
+      updated_by:
+        type: integer
+    type: object
+  api.UpdateStudentReq:
+    properties:
+      age:
+        type: integer
+      alias:
+        items:
+          type: string
+        type: array
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  api.UpdateStudentRsp:
+    properties:
+      count:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /student:
+    post:
+      parameters:
+      - description: '-'
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.AddStudentReq'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.AddStudentRsp'
+      summary: 创建学生
+      tags:
+      - student
+    put:
+      parameters:
+      - description: '-'
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpdateStudentReq'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpdateStudentRsp'
+      summary: 更新学生
+      tags:
+      - student
+  /student/{id}:
+    delete:
+      parameters:
+      - description: 学生 ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.DeleteStudentRsp'
+      summary: 删除学生
+      tags:
+      - student
+    get:
+      parameters:
+      - description: 学生 ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetStudentRsp'
+      summary: 查询学生
+      tags:
+      - student
+  /student/list:
+    get:
+      parameters:
+      - description: 页数
+        in: query
+        name: page
+        type: integer
+      - description: 每页数量
+        in: query
+        name: page_size
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ListStudentRsp'
+      summary: 查询学生列表
+      tags:
+      - student
+produces:
+- application/json
+schemes:
+- http
+- https
+swagger: "2.0"
